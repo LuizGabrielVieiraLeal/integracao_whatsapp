@@ -14,7 +14,7 @@
             <div class="card shadow-sm p-4" style="min-width: 320px; max-width: 400px; width: 100%;">
                 <!-- Alerta informativo -->
                 <div class="alert" role="alert">
-                    <h4 class="alert-heading">Autenticação por WhatsApp</h4>
+                    <h4 class="alert-heading mb-4">Autenticação por WhatsApp</h4>
                     <p>Para garantir a segurança da sua conta, é necessário confirmar a sua identidade.</p>
                     <p>Você receberá um código de verificação via WhatsApp. Por favor, siga os seguintes passos:</p>
                     <ul>
@@ -43,14 +43,14 @@
                 <form method="POST" action="{{ route('verificar.codigo') }}">
                     @csrf
 
-                    <div class="mb-3">
+                    <div class="mt-3 mb-3">
                         <label for="codigo" class="form-label"><strong>Código de Verificação:</strong></label>
                         <input type="text" id="codigo" name="codigo" class="form-control" maxlength="6"
                             pattern="\d{6}" required autofocus value="{{ old('codigo') }}"
                             placeholder="Digite o código recebido">
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Verificar</button>
+                    <button type="submit" class="btn btn-primary w-100 m-1">Verificar</button>
 
                     <div class="text-center mt-3">
                         <a href="{{ route('reenviar.codigo') }}" id="reenviar-link"
