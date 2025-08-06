@@ -65,7 +65,7 @@
     </div>
 
     <script>
-        let tempoRestante = 30;
+        let tempoRestante = 60;
         const contador = document.getElementById('contador');
         const link = document.getElementById('reenviar-link');
 
