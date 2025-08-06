@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\WhatsappAuth;
+use App\Services\Whatsapp;
 
 class WhatsappAuthController extends Controller
 {
@@ -13,7 +13,7 @@ class WhatsappAuthController extends Controller
         $numero = $request->get('numero', '55119' . rand(100000, 999999)); // número de telefone do usuario
         session()->put('numero', $numero);
 
-        WhatsappAuth::enviarCodigo($numero);
+        Whatsapp::enviarCodigo($numero);
 
         return redirect()->route('form.verificacao');
     }
@@ -27,7 +27,7 @@ class WhatsappAuthController extends Controller
         }
 
         try {
-            WhatsappAuth::enviarCodigo($numero); // Certifique-se que este método exista
+            Whatsapp::enviarCodigo($numero); // Certifique-se que este método exista
             return back()->with('status', 'Novo código enviado via WhatsApp! 📲');
         } catch (\Exception $e) {
             return back()->with('error', 'Erro ao reenviar o código. Tente novamente.');
@@ -49,7 +49,7 @@ class WhatsappAuthController extends Controller
 
         $numero = session('numero'); // número de telefone do usuario
 
-        $valido = WhatsappAuth::verificarCodigo($numero, $request->input('codigo'));
+        $valido = Whatsapp::verificarCodigo($numero, $request->input('codigo'));
 
         return back()->with('status', $valido ? 'Código válido! ✅' : 'Código inválido ou expirado ❌');
     }

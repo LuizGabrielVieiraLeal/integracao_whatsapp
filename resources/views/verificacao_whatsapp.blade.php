@@ -13,7 +13,7 @@
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="card shadow-sm p-4" style="min-width: 320px; max-width: 400px; width: 100%;">
                 <!-- Alerta informativo -->
-                <div class="alert alert-info" role="alert">
+                <div class="alert" role="alert">
                     <h4 class="alert-heading">Autenticação por WhatsApp</h4>
                     <p>Para garantir a segurança da sua conta, é necessário confirmar a sua identidade.</p>
                     <p>Você receberá um código de verificação via WhatsApp. Por favor, siga os seguintes passos:</p>

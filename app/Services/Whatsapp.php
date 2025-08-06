@@ -4,9 +4,8 @@ namespace App\Services;
 
 use App\Models\VerificacaoWhatsapp;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 
-class WhatsappAuth
+class Whatsapp
 {
 
     /**
@@ -55,10 +54,6 @@ class WhatsappAuth
      */
     private static function enviarWhatsapp(string $numero, string $mensagem): void
     {
-        // Simula envio com log — troque por chamada real à API de WhatsApp
-        Log::info("📲 Enviando WhatsApp para $numero: $mensagem");
-
-        // Exemplo real (usando Http::post com a API da Meta ou Twilio):
         /*
         Http::withToken('SEU_TOKEN')
             ->post('https://graph.facebook.com/v23.0/SEU_PHONE_ID/messages', [
