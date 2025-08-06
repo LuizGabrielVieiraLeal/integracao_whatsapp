@@ -37,12 +37,17 @@ class WhatsappAuth
             ->orderByDesc('created_at')
             ->first();
 
-        if (!$registro) {
-            return false;
+        if (!$registro) return false;
+
+        $valido = $registro->codigo === $codigoInformado
+            && Carbon::parse($registro->expires_at)->isFuture();
+
+        if ($valido) {
+            $registro->verificado = true;
+            $registro->save();
         }
 
-        return $registro->codigo === $codigoInformado
-            && Carbon::parse($registro->expires_at)->isFuture();
+        return $valido;
     }
 
     /**
@@ -56,7 +61,7 @@ class WhatsappAuth
         // Exemplo real (usando Http::post com a API da Meta ou Twilio):
         /*
         Http::withToken('SEU_TOKEN')
-            ->post('https://graph.facebook.com/v18.0/SEU_PHONE_ID/messages', [
+            ->post('https://graph.facebook.com/v23.0/SEU_PHONE_ID/messages', [
                 'messaging_product' => 'whatsapp',
                 'to' => $numero,
                 'type' => 'text',

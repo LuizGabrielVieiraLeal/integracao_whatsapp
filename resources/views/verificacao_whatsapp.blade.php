@@ -18,17 +18,16 @@
                     <p>Para garantir a segurança da sua conta, é necessário confirmar a sua identidade.</p>
                     <p>Você receberá um código de verificação via WhatsApp. Por favor, siga os seguintes passos:</p>
                     <ul>
-                        <li>Insira o número do WhatsApp que você deseja utilizar para a autenticação.</li>
                         <li>Você receberá um código de 6 dígitos no WhatsApp.</li>
                         <li>Digite o código de 6 dígitos no campo abaixo e clique em "Verificar".</li>
                     </ul>
                     <hr />
-                    <p class="mb-0">Caso não receba o código, verifique se o número está correto, aguarde alguns
-                        instantes e caso ainda não receba clique para reenviar.</p>
+                    <p class="mb-0">Caso não receba o código, em alguns instantes você poderá solicitar o reenvio
+                        novamente.</p>
                 </div>
 
                 @if (session('status'))
-                    <div class="alert {{ str_contains(session('status'), 'válido') ? 'alert-success' : 'alert-danger' }}"
+                    <div class="alert {{ str_contains(session('status'), 'válido') || str_contains(session('status'), 'Novo código enviado') ? 'alert-success' : 'alert-danger' }}"
                         role="alert">
                         {{ session('status') }}
                     </div>
@@ -44,22 +43,45 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="codigo" class="form-label">Código de Verificação</label>
+                        <label for="codigo" class="form-label"><strong>Código de Verificação:</strong></label>
                         <input type="text" id="codigo" name="codigo" class="form-control" maxlength="6"
                             pattern="\d{6}" required autofocus value="{{ old('codigo') }}"
                             placeholder="Digite o código recebido">
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Verificar</button>
+
                     <div class="text-center mt-3">
-                        <a href="{{ route('reenviar.codigo') }}" class="text-decoration-none">Reenviar código via
-                            WhatsApp
-                            🔄</a>
+                        <a href="{{ route('reenviar.codigo') }}" id="reenviar-link"
+                            class="text-decoration-none disabled text-muted" aria-disabled="true"
+                            onclick="return false;">
+                            Reenviar código via WhatsApp 🔄 <span id="contador">(30s)</span>
+                        </a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        let tempoRestante = 30;
+        const contador = document.getElementById('contador');
+        const link = document.getElementById('reenviar-link');
+
+        const intervalo = setInterval(() => {
+            tempoRestante--;
+            contador.textContent = `(${tempoRestante}s)`;
+
+            if (tempoRestante <= 0) {
+                clearInterval(intervalo);
+                link.classList.remove('disabled', 'text-muted');
+                link.removeAttribute('aria-disabled');
+                link.setAttribute('onclick', '');
+                contador.remove(); // remove o contador
+                link.textContent = 'Reenviar código via WhatsApp 🔄';
+            }
+        }, 1000);
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

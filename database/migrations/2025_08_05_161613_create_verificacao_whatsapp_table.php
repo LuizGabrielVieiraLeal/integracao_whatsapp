@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('numero')->index();
             $table->string('codigo');
             $table->timestamp('expires_at');
+            $table->boolean('verificado')->default(false);
             $table->timestamps();
         });
     }
