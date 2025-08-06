@@ -21,10 +21,11 @@
                         <li>Você receberá um código de 6 dígitos no WhatsApp.</li>
                         <li>Digite o código de 6 dígitos no campo abaixo e clique em "Verificar".</li>
                     </ul>
-                    <hr />
                     <p class="mb-0">Caso não receba o código, em alguns instantes você poderá solicitar o reenvio
                         novamente.</p>
                 </div>
+
+                <hr class="mb-4" />
 
                 @if (session('status'))
                     <div class="alert {{ str_contains(session('status'), 'válido') || str_contains(session('status'), 'Novo código enviado') ? 'alert-success' : 'alert-danger' }}"
